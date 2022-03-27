@@ -2,23 +2,28 @@ schema {
     query: Query
 }
 
-type GeoPoint {
+type GeoPoint @aws_api_key {
     lat: Float!
     lon: Float!
 }
 
-type Address {
+type Address @aws_api_key {
     streetWithNumber: String!
     zipCode: String!
     city: String!
 }
 
-type Facility {
+type Facility @aws_api_key {
     name: String!
     address: Address!
     location: GeoPoint!
 }
 
+type User {
+    email: String!
+}
+
 type Query {
-    facilities(after: String, limit: Int = 20): [Facility!]
+    facilities(after: String, limit: Int = 20): [Facility!] @aws_api_key
+    viewer: User! @aws_cognito_user_pools
 }

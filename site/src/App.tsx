@@ -1,27 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Amplify } from "aws-amplify";
+import {
+  AmplifyProvider,
+  Authenticator,
+  Button,
+  Flex,
+  Text,
+  View,
+} from "@aws-amplify/ui-react";
+import aws_exports from "./aws-exports";
 
-function App() {
+import "@aws-amplify/ui-react/styles.css";
+import theme from "./theme";
+
+Amplify.configure(aws_exports);
+
+console.log(aws_exports)
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <AmplifyProvider theme={theme}>
+      <Authenticator 
+        loginMechanisms={['email']}
+        signUpAttributes={['name']}
         >
-          Learn React
-        </a>
-        <span>{process.env.REACT_APP_GRAPHQL_API_URL}</span>
-      </header>
-    </div>
+        {({ signOut, user }) => (
+          <Flex
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            alignContent="flex-start"
+            wrap="nowrap"
+            gap="1rem"
+            textAlign="center"
+          >
+          
+
+            {user && (
+              <View width="100%">
+                <Text>Hello {user.attributes?.name}</Text>
+                <Button onClick={signOut}>
+                  <Text>Sign Out</Text>
+                </Button>
+              </View>
+            )}
+          </Flex>
+        )}
+      </Authenticator>
+    </AmplifyProvider>
   );
-}
+};
 
 export default App;
