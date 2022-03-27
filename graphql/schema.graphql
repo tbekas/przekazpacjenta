@@ -1,0 +1,24 @@
+schema {
+    query: Query
+}
+
+type GeoPoint {
+    lat: Float!
+    lon: Float!
+}
+
+type Address {
+    streetWithNumber: String!
+    zipCode: String!
+    city: String!
+}
+
+type Facility {
+    name: String!
+    address: Address!
+    location: GeoPoint!
+}
+
+type Query {
+    facilities(after: String, limit: Int = 20): [Facility!]
+}
