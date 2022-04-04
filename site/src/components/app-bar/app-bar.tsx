@@ -63,7 +63,6 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => {
-    // console.log("prop AppBar", { prop: prop, valid: isPropValid(prop) });
     return isPropValid(prop) && prop !== "open";
   }
 })<AppBarProps>(({ theme, open, drawerWidth }) => {

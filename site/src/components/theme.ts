@@ -1,7 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-// import { red } from '@mui/material/colors';
 
-// A custom theme for Przekaż pacjenta
 let themeSettings = createTheme({
   palette: {
     primary: {

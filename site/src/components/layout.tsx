@@ -4,7 +4,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import theme from "./theme";
 
-// Components
 import AppBar from "./app-bar/app-bar";
 import AppDrawer from "./app-drawer/app-drawer";
 import AppContent from "./app-content/app-content";

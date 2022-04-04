@@ -5,17 +5,12 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-//Components
+
 import Footer from "../footer/footer";
 import Main from "../../routes/main";
-import Pacjent from "../../routes/pacjent";
-import Miejsce from "../../routes/miejsce";
+import Pacjent from "../../routes/patient";
+import Bed from "../../routes/bed";
 import { Routes, Route } from "react-router-dom";
-// type Props = {
-//   open: boolean;
-//   drawerWidth: number;
-//   toggleDrawer: (event: React.MouseEvent<HTMLButtonElement>) => void;
-// };
 
 const AppContent = () => {
   return (
@@ -34,8 +29,8 @@ const AppContent = () => {
         <Grid container spacing={3}>
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/pacjent" element={<Pacjent />} />
-            <Route path="/miejsce" element={<Miejsce />} />
+            <Route path="/patient" element={<Pacjent />} />
+            <Route path="/bed" element={<Bed />} />
           </Routes>
         </Grid>
         <Footer />
@@ -45,8 +40,6 @@ const AppContent = () => {
 };
 
 AppContent.propTypes = {
-  // open: PropTypes.bool.isRequired,
-  // drawerWidth: PropTypes.number.isRequired
 };
 
 export default AppContent;

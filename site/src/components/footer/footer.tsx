@@ -20,7 +20,7 @@ function Copyright(props: any) {
       {"Copyright © Przekaż pacjenta "}
       {new Date().getFullYear()}
       {". | Created by: "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="https://aplinet.pl">
         Aplinet
       </Link>{" "}
     </Typography>

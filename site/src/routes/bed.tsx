@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 
 import Title from "../components/title";
 
-export default function Pacjent() {
+export default function Bed() {
   return (
     <Grid item xs={12}>
       <Paper
@@ -13,7 +13,7 @@ export default function Pacjent() {
           flexDirection: "column"
         }}
       >
-        <Title>Pacjent</Title>
+        <Title>Miejsce</Title>
       </Paper>
     </Grid>
   );

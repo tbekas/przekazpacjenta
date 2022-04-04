@@ -25,10 +25,10 @@ export const mainListItems = (
     <Link to="/">
       <LinkStyled icon={<DashboardIcon />} name="Dash" />
     </Link>
-    <Link to="/pacjent">
-      <LinkStyled icon={<PatientIcon />} name="Pacjent" />
+    <Link to="/patient">
+      <LinkStyled icon={<PatientIcon />} name="Patient" />
     </Link>
-    <Link to="/miejsce">
+    <Link to="/bed">
       <LinkStyled icon={<BedIcon />} name="Miejsce" />
     </Link>
   </React.Fragment>
