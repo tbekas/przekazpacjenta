@@ -1,5 +1,7 @@
 type FacilitiesParams = {
-  after: string;
+  query?: string;
+  after?: string;
+  before?: string;
   limit: number;
 };
 
@@ -14,8 +16,19 @@ type GeoPoint = {
   lon: number;
 };
 
+type PageInfo = {
+  totalCount: number;
+  first: string;
+  last: string;
+}
+
 type Facility = {
   name: string;
   address: Address;
   location: GeoPoint;
 };
+
+type FacilitiesPage = {
+  items: Facility[];
+  pageInfo: PageInfo;
+}

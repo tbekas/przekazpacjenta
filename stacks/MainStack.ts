@@ -1,5 +1,6 @@
 import * as sst from "@serverless-stack/resources";
 import * as cdk from "aws-cdk-lib";
+import { custom_resources as cr, aws_iam as iam, aws_route53 as route53 } from "aws-cdk-lib";
 import * as appsync from "@aws-cdk/aws-appsync-alpha";
 
 export interface MainStackProps extends sst.StackProps {
@@ -31,6 +32,10 @@ export default class MainStack extends sst.Stack {
         },
       },
     });
+
+    /**
+     * API
+     */
 
     const api = new sst.AppSyncApi(this, "AppSyncApi", {
       defaultFunctionProps: {
@@ -72,6 +77,10 @@ export default class MainStack extends sst.Stack {
       },
     });
 
+    /**
+     * Site
+     */
+
     const siteDomain =
       scope.stage === "prod"
         ? props.siteDomainName
@@ -100,10 +109,46 @@ export default class MainStack extends sst.Stack {
       },
     });
 
+    /**
+     * SES
+     */
+    const verifyDomainIdentity = new cr.AwsCustomResource(
+      this,
+      "VerifyDomainIdentity",
+      {
+        onCreate: {
+          service: "SES",
+          action: "verifyDomainIdentity",
+          parameters: {
+            Domain: props.emailDomainName,
+          },
+          physicalResourceId:
+            cr.PhysicalResourceId.fromResponse("VerificationToken"),
+        },
+        policy: cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            resources: ["*"],
+            actions: ["ses:VerifyDomainIdentity"],
+          }),
+        ]),
+      }
+    );  
+
+    const hostedZone = route53.HostedZone.fromLookup(this, "HostedZone", {
+      domainName: props.hostedZoneName,
+    });
+
+    new route53.TxtRecord(this, "SESVerificationRecord", {
+      zone: hostedZone,
+      recordName: `_amazonses.${props.emailDomainName}`,
+      values: [verifyDomainIdentity.getResponseField("VerificationToken")],
+    });
+
     this.addOutputs({
+      SiteAddress: site.customDomainUrl || site.url,
       ApiEndpoint: api.graphqlApi.graphqlUrl,
       ApiKey: api.graphqlApi.apiKey || "api key not found",
-      SiteAddress: site.customDomainUrl || site.url,
+      RdsSecretArn: rds.secretArn,
     });
     this.rds = rds
     this.dbName = dbName

@@ -1,5 +1,12 @@
 schema {
     query: Query
+    mutation: Mutation
+}
+
+interface PageInfo {
+    totalCount: Int!
+    first: String!
+    last: String!
 }
 
 type GeoPoint @aws_api_key {
@@ -14,16 +21,47 @@ type Address @aws_api_key {
 }
 
 type Facility @aws_api_key {
+    id: ID!,
     name: String!
+    email: AWSEmail!
+    phoneNumber: AWSPhone!
     address: Address!
     location: GeoPoint!
 }
 
+type FacilitiesPage @aws_api_key {
+    items: [Facility]!
+    pageInfo: PageInfo!
+}
+
 type User {
-    email: String!
+    id: ID!,
+    email: AWSEmail!
+    facilities: [Facility]!
+}
+
+enum MembershipStatus {
+    GRANTED
+    AWAITING
+}
+
+type MembershipRequest {
+    facility: Facility!
+    status: MembershipStatus!
+    createdAt: AWSDateTime!
 }
 
 type Query {
-    facilities(after: String, limit: Int = 20): [Facility!] @aws_api_key
+    facilities(
+        query: String,
+        after: String,
+        before: String,
+        limit: Int = 20
+    ): FacilitiesPage! @aws_api_key
     viewer: User! @aws_cognito_user_pools
+    membershipRequests: [MembershipRequest]! @aws_cognito_user_pools
+}
+
+type Mutation {
+    requestMembership(facilityId: ID!): MembershipRequest!
 }

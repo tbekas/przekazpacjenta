@@ -10,7 +10,6 @@ export default class MigrationsStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props: MigrationsStackProps) {
     super(scope, id, props);
 
-
     const commonProps = {
       environment: {
         DATABASE: props.dbName,
@@ -19,7 +18,6 @@ export default class MigrationsStack extends sst.Stack {
         DEBUG_EMAILS: scope.stage === "prod" ? "" : props.debugEmails,
       },
       permissions: [props.rds],
-      enableLiveDev: true,
       timeout: 60
     }
 
@@ -32,7 +30,14 @@ export default class MigrationsStack extends sst.Stack {
       handler: "lambdas/database/apply-unapply-migrations.unapplyHandler",
       ...commonProps,
     })
-    
-    
+
+    new sst.Script(this, "ApplyMigrationsAfterDeploy", {
+      onCreate: "lambdas/database/apply-unapply-migrations.applyHandler",
+      onUpdate: "lambdas/database/apply-unapply-migrations.applyHandler",
+      defaultFunctionProps: {
+        ...commonProps,
+        enableLiveDev: false,
+      },
+    });
   }
 }
