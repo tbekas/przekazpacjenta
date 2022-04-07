@@ -2,15 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import isPropValid from "@emotion/is-prop-valid";
 import { styled } from "@mui/material/styles";
-
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { Typography } from "@mui/material";
-
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import UserMenuButton from "../user-menu-button";
 
 type Props = {
   open: boolean;
@@ -46,6 +45,7 @@ const Appbar = ({ open, drawerWidth, toggleDrawer }: Props) => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
+        <UserMenuButton />
       </Toolbar>
     </AppBar>
   );
