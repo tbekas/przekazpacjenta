@@ -3,11 +3,11 @@ import { dataApi } from '.'
 import { Kysely, Migrator, MigrationResult, NO_MIGRATIONS } from 'kysely'
 import * as migrations from './migrations'
 
-interface MigrationsEvent {
-  logQuery?: boolean
+interface ApplyUnapplyEvent {
+  logQuery?: boolean,
 }
 
-export const applyHandler: Handler<MigrationsEvent, void> = async ({logQuery}) => {
+export const applyHandler: Handler<ApplyUnapplyEvent, void> = async ({logQuery}) => {
   console.log(`Applying migrations`)
 
   const migrator = createMigrator(logQuery)
@@ -20,11 +20,32 @@ export const applyHandler: Handler<MigrationsEvent, void> = async ({logQuery}) =
   }
 }
 
-export const unapplyHandler: Handler<MigrationsEvent, void> = async ({logQuery}) => {
+export const unapplyHandler: Handler<ApplyUnapplyEvent, void> = async ({logQuery}) => {
   console.log(`Unapplying migrations`)
 
   const migrator = createMigrator(logQuery)
   const { error, results } = await migrator.migrateTo(NO_MIGRATIONS)
+
+  logResults(results)
+
+  if (error) {
+    throw error
+  }
+}
+
+interface MigrateToEvent {
+  to: string;
+}
+
+export const migrateToHandler: Handler<ApplyUnapplyEvent & MigrateToEvent, void> = async ({logQuery, to}) => {
+  if (to in migrations) {
+    console.log(`Migrating to ${to}`)
+  } else {
+    throw new Error(`Migration not found ${to}`)
+  }
+
+  const migrator = createMigrator(logQuery)
+  const { error, results } = await migrator.migrateTo(to)
 
   logResults(results)
 

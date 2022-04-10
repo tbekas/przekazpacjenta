@@ -20,6 +20,7 @@
     "@serverless-stack/resources": "0.69.3",
     "@tsconfig/node14": "^1.0.1",
     "@types/aws-lambda": "^8.10.70",
+    "@types/escape-html": "^1.0.1",
     "@types/node": "<15.0.0",
     "aws-cdk-lib": "2.15.0",
     "pg-native": "^3.0.0",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1106.0",
+    "escape-html": "^1.0.3",
     "kysely": "^0.17.1",
     "kysely-data-api": "0.0.9"
   }

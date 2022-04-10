@@ -1,29 +1,78 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
-type GeoPoint @aws_api_key {
+interface PageInfo {
+    totalCount: Int!
+    first: String!
+    last: String!
+}
+
+type GeoPoint {
     lat: Float!
     lon: Float!
 }
 
-type Address @aws_api_key {
+type Address {
     streetWithNumber: String!
     zipCode: String!
     city: String!
 }
 
-type Facility @aws_api_key {
+type Facility {
+    id: ID!
     name: String!
+    email: AWSEmail!
+    phoneNumber: AWSPhone
     address: Address!
-    location: GeoPoint!
+    location: GeoPoint
+    createdAt: AWSDateTime
+}
+
+type FacilitiesPage {
+    items: [Facility]!
+    pageInfo: PageInfo!
 }
 
 type User {
-    email: String!
+    id: ID!
+    name: String!
+    email: AWSEmail!
+    phoneNumber: AWSPhone
+    facilities: [Facility]!
+    createdAt: AWSDateTime!
+}
+
+type Enrollment {
+    id: ID!
+    facility: Facility!
+    approved: Boolean!
+    expirationAt: AWSDateTime!
+    createdAt: AWSDateTime!
 }
 
 type Query {
-    facilities(after: String, limit: Int = 20): [Facility!] @aws_api_key
-    viewer: User! @aws_cognito_user_pools
+    facilities(
+        query: String,
+        after: String,
+        before: String,
+        limit: Int = 20
+    ): FacilitiesPage!
+    viewer: User!
+    enrollments(approved: Boolean): [Enrollment]!
+}
+
+input RequestEnrollmentInput {
+    facilityId: ID!
+}
+
+input FinalizeEnrollmentInput {
+    enrollmentId: ID!
+    approvalToken: String!
+}
+
+type Mutation {
+    requestEnrollment(input: RequestEnrollmentInput!): Enrollment!
+    finalizeEnrollment(input: FinalizeEnrollmentInput!): Enrollment!
 }

@@ -10,8 +10,7 @@ export default class MigrationsStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props: MigrationsStackProps) {
     super(scope, id, props);
 
-
-    const commonProps = {
+    const commonFnProps = {
       environment: {
         DATABASE: props.dbName,
         CLUSTER_ARN: props.rds.clusterArn,
@@ -19,20 +18,31 @@ export default class MigrationsStack extends sst.Stack {
         DEBUG_EMAILS: scope.stage === "prod" ? "" : props.debugEmails,
       },
       permissions: [props.rds],
-      enableLiveDev: true,
-      timeout: 60
+      timeout: 60,
     }
 
     new sst.Function(this, "ApplyMigrations", {
       handler: "lambdas/database/apply-unapply-migrations.applyHandler",
-      ...commonProps,
+      ...commonFnProps,
     })
     
     new sst.Function(this, "UnapplyMigrations", {
       handler: "lambdas/database/apply-unapply-migrations.unapplyHandler",
-      ...commonProps,
+      ...commonFnProps,
     })
     
-    
+    new sst.Function(this, "MigrateToMigration", {
+      handler: "lambdas/database/apply-unapply-migrations.migrateToHandler",
+      ...commonFnProps,
+    })
+
+    new sst.Script(this, "ApplyMigrationsAfterDeploy", {
+      onCreate: "lambdas/database/apply-unapply-migrations.applyHandler",
+      onUpdate: "lambdas/database/apply-unapply-migrations.applyHandler",
+      defaultFunctionProps: {
+        ...commonFnProps,
+        enableLiveDev: false,
+      },
+    });
   }
 }

@@ -2,8 +2,6 @@ import { Kysely } from 'kysely';
 import facilities from "./002-facilities.json"
 
 async function up(db: Kysely<any>): Promise<void> {
-
-  
   await db.insertInto('facility')
     .values(facilities)
     .execute()
