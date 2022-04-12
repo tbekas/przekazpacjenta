@@ -3,7 +3,6 @@ import * as sst from "@serverless-stack/resources";
 export interface MigrationsStackProps extends sst.StackProps {
   rds: sst.RDS,
   dbName: string,
-  debugEmails: string,
 }
 
 export default class MigrationsStack extends sst.Stack {
@@ -15,7 +14,6 @@ export default class MigrationsStack extends sst.Stack {
         DATABASE: props.dbName,
         CLUSTER_ARN: props.rds.clusterArn,
         SECRET_ARN: props.rds.secretArn,
-        DEBUG_EMAILS: scope.stage === "prod" ? "" : props.debugEmails,
       },
       permissions: [props.rds],
       timeout: 60,
@@ -35,6 +33,13 @@ export default class MigrationsStack extends sst.Stack {
       handler: "lambdas/database/apply-unapply-migrations.migrateToHandler",
       ...commonFnProps,
     })
+
+    if (scope.stage !== "prod") {
+      new sst.Function(this, "CreateFacilities", {
+        handler: "lambdas/facility/create-facilities.handler",
+        ...commonFnProps,
+      })
+    }
 
     new sst.Script(this, "ApplyMigrationsAfterDeploy", {
       onCreate: "lambdas/database/apply-unapply-migrations.applyHandler",

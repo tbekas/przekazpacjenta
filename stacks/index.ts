@@ -20,7 +20,6 @@ export default function main(app: sst.App): void {
   const migrationsStack = new MigrationsStack(app, "migrations-stack", {
     rds: mainStack.rds,
     dbName: mainStack.dbName,
-    debugEmails: process.env.DEBUG_EMAILS || "",
   })
 
   migrationsStack.addDependency(mainStack)

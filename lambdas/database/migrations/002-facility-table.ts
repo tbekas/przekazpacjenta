@@ -1,8 +1,6 @@
 import { Kysely, sql } from 'kysely';
 
 async function up(db: Kysely<any>): Promise<void> {
-  await sql`create extension "uuid-ossp"`.execute(db)
-
   await db.schema
     .createTable('facility')
     .addColumn('id', 'uuid', (col) => col.primaryKey().defaultTo(sql`uuid_generate_v4()`))
@@ -18,8 +16,6 @@ async function up(db: Kysely<any>): Promise<void> {
 
 async function down(db: Kysely<any>): Promise<void> {
   await db.schema.dropTable('facility').execute()
-
-  await sql`drop extension "uuid-ossp"`.execute(db)
 }
 
 export default { up, down }
