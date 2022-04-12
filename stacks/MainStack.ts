@@ -204,8 +204,8 @@ export default class MainStack extends sst.Stack {
     this.addOutputs({
       SiteAddress: site.customDomainUrl || site.url,
       ApiEndpoint: api.graphqlApi.graphqlUrl,
-      ApiKey: api.graphqlApi.apiKey || "api key not found",
       RdsSecretArn: rds.secretArn,
+      DatabaseName: dbName,
     });
     this.rds = rds
     this.dbName = dbName
