@@ -1,0 +1,20 @@
+name:  CI - build on pull request
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:  
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: install and build backend
+      run: npm install
+      run: npm run build
+
+    - name: install and build frontend
+      run: npm install --prefix ./site/
+      run: npm run build --prefix ./site/
