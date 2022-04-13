@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { styled } from "@mui/material/styles";
-import isPropValid from "@emotion/is-prop-valid";
+// import isPropValid from "@emotion/is-prop-valid";
 import Divider from "@mui/material/Divider";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
