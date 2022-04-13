@@ -12,9 +12,11 @@ jobs:
       uses: actions/checkout@v3
     
     - name: install and build backend
-      run: npm install
-      run: npm run build
+      run: |
+      npm install
+      npm run build
 
     - name: install and build frontend
-      run: npm install --prefix ./site/
-      run: npm run build --prefix ./site/
+      run: |
+      npm install --prefix ./site/
+      npm run build --prefix ./site/
