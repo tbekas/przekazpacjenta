@@ -13,10 +13,10 @@ jobs:
     
     - name: install and build backend
       run: |
-      npm install
-      npm run build
+        npm install
+        npm run build
 
     - name: install and build frontend
       run: |
-      npm install --prefix ./site/
-      npm run build --prefix ./site/
+        npm install --prefix ./site/
+        npm run build --prefix ./site/
