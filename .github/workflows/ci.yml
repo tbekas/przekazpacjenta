@@ -3,6 +3,7 @@ name:  CI - build on pull request
 on:
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -10,13 +11,16 @@ jobs:
     steps:  
     - name: Checkout
       uses: actions/checkout@v3
-    
-    - name: install and build backend
-      run: |
-        npm install
-        npm run build
 
-    - name: install and build frontend
-      run: |
-        npm install --prefix ./site/
-        npm run build --prefix ./site/
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+    - run: npm install
+    - run: npm install --prefix ./site/
+
+    - name: build backend
+      run: npm run build
+
+    - name: build frontend
+      run: npm run build --prefix ./site/
