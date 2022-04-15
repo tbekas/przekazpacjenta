@@ -1,4 +1,4 @@
-name:  CD - deploy on marge to main
+name:  CD - deploy on merge to main
 
 on:
   push:
