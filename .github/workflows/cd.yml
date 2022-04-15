@@ -25,6 +25,7 @@ jobs:
       with:
         node-version: '14'
     - run: npm install
+    - run: npm install --prefix ./site/
 
     - name: Deploy serverless stack
       run: npm run deploy -- --stage staging
