@@ -22,4 +22,4 @@ jobs:
         aws-region: eu-central-1
 
     - name: Deploy serverless stack
-      run: npx sst deploy --stage staging 
+      run: npx sst deploy --stage staging
