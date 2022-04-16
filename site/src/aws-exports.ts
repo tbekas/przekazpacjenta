@@ -5,6 +5,6 @@ const awsExports = {
   aws_cognito_region: process.env.REACT_APP_REGION,
   aws_user_pools_id: process.env.REACT_APP_USERPOOL_ID,
   aws_user_pools_web_client_id: process.env.REACT_APP_USERPOOL_CLIENT_ID,
-}
+};
 
 export default awsExports;

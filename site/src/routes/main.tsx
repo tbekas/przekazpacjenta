@@ -1,7 +1,7 @@
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
-import Title from "../components/title";
+import Title from '../components/title';
 
 const Main = () => {
   return (
@@ -10,9 +10,9 @@ const Main = () => {
         <Paper
           sx={{
             p: 2,
-            display: "flex",
-            flexDirection: "column",
-            height: 240
+            display: 'flex',
+            flexDirection: 'column',
+            height: 240,
           }}
         >
           <Title>Dasch</Title>
@@ -22,16 +22,16 @@ const Main = () => {
         <Paper
           sx={{
             p: 2,
-            display: "flex",
-            flexDirection: "column",
-            height: 240
+            display: 'flex',
+            flexDirection: 'column',
+            height: 240,
           }}
         >
           <Title>Allert</Title>
         </Paper>
       </Grid>
       <Grid item xs={12}>
-        <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
           <Title>Message</Title>
         </Paper>
       </Grid>

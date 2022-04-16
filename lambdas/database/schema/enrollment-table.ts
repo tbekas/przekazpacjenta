@@ -1,4 +1,4 @@
-import { ColumnType, Generated, Insertable, Selectable, Updateable } from 'kysely'
+import { ColumnType, Generated, Insertable, Selectable, Updateable } from 'kysely';
 
 export interface EnrollmentTable {
   id: Generated<string>;
@@ -10,6 +10,6 @@ export interface EnrollmentTable {
   createdAt: Generated<string>;
 }
 
-export type EnrollmentRow = Selectable<EnrollmentTable>
-export type InsertableEnrollmentRow = Insertable<EnrollmentTable>
-export type UpdateableEnrollmentRow = Updateable<EnrollmentTable>
+export type EnrollmentRow = Selectable<EnrollmentTable>;
+export type InsertableEnrollmentRow = Insertable<EnrollmentTable>;
+export type UpdateableEnrollmentRow = Updateable<EnrollmentTable>;

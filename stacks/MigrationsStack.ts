@@ -1,8 +1,8 @@
-import * as sst from "@serverless-stack/resources";
+import * as sst from '@serverless-stack/resources';
 
 export interface MigrationsStackProps extends sst.StackProps {
-  rds: sst.RDS,
-  dbName: string,
+  rds: sst.RDS;
+  dbName: string;
 }
 
 export default class MigrationsStack extends sst.Stack {
@@ -17,33 +17,33 @@ export default class MigrationsStack extends sst.Stack {
       },
       permissions: [props.rds],
       timeout: 60,
-    }
+    };
 
-    new sst.Function(this, "ApplyMigrations", {
-      handler: "lambdas/database/apply-unapply-migrations.applyHandler",
+    new sst.Function(this, 'ApplyMigrations', {
+      handler: 'lambdas/database/apply-unapply-migrations.applyHandler',
       ...commonFnProps,
-    })
-    
-    new sst.Function(this, "UnapplyMigrations", {
-      handler: "lambdas/database/apply-unapply-migrations.unapplyHandler",
-      ...commonFnProps,
-    })
-    
-    new sst.Function(this, "MigrateToMigration", {
-      handler: "lambdas/database/apply-unapply-migrations.migrateToHandler",
-      ...commonFnProps,
-    })
+    });
 
-    if (scope.stage !== "prod") {
-      new sst.Function(this, "CreateFacilities", {
-        handler: "lambdas/facility/create-facilities.handler",
+    new sst.Function(this, 'UnapplyMigrations', {
+      handler: 'lambdas/database/apply-unapply-migrations.unapplyHandler',
+      ...commonFnProps,
+    });
+
+    new sst.Function(this, 'MigrateToMigration', {
+      handler: 'lambdas/database/apply-unapply-migrations.migrateToHandler',
+      ...commonFnProps,
+    });
+
+    if (scope.stage !== 'prod') {
+      new sst.Function(this, 'CreateFacilities', {
+        handler: 'lambdas/facility/create-facilities.handler',
         ...commonFnProps,
-      })
+      });
     }
 
-    new sst.Script(this, "ApplyMigrationsAfterDeploy", {
-      onCreate: "lambdas/database/apply-unapply-migrations.applyHandler",
-      onUpdate: "lambdas/database/apply-unapply-migrations.applyHandler",
+    new sst.Script(this, 'ApplyMigrationsAfterDeploy', {
+      onCreate: 'lambdas/database/apply-unapply-migrations.applyHandler',
+      onUpdate: 'lambdas/database/apply-unapply-migrations.applyHandler',
       defaultFunctionProps: {
         ...commonFnProps,
         enableLiveDev: false,

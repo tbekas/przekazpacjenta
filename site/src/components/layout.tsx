@@ -1,12 +1,12 @@
-import * as React from "react";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import theme from "./theme";
+import * as React from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import theme from './theme';
 
-import AppBar from "./app-bar/app-bar";
-import AppDrawer from "./app-drawer/app-drawer";
-import AppContent from "./app-content/app-content";
+import AppBar from './app-bar/app-bar';
+import AppDrawer from './app-drawer/app-drawer';
+import AppContent from './app-content/app-content';
 
 const drawerWidth: number = 240;
 
@@ -22,7 +22,7 @@ function DashboardContent() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar open={open} drawerWidth={drawerWidth} toggleDrawer={toggleDrawer} />
         <AppDrawer open={open} drawerWidth={drawerWidth} toggleDrawer={toggleDrawer} />

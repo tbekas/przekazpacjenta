@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Typography, Link } from "@mui/material";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Typography, Link } from '@mui/material';
 
 const Footer = () => {
   return (
@@ -11,18 +11,18 @@ const Footer = () => {
 };
 
 Footer.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.element,
 };
 
 function Copyright(props: any) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props} sx={{ mt: 0.8 }}>
-      {"Copyright © Przekaż pacjenta "}
+    <Typography variant='body2' color='text.secondary' align='center' {...props} sx={{ mt: 0.8 }}>
+      {'Copyright © Przekaż pacjenta '}
       {new Date().getFullYear()}
-      {". | Created by: "}
-      <Link color="inherit" href="https://aplinet.pl">
+      {'. | Created by: '}
+      <Link color='inherit' href='https://aplinet.pl'>
         Aplinet
-      </Link>{" "}
+      </Link>{' '}
     </Typography>
   );
 }

@@ -1,7 +1,7 @@
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
-import Title from "../components/title";
+import Title from '../components/title';
 
 export default function Patient() {
   return (
@@ -9,8 +9,8 @@ export default function Patient() {
       <Paper
         sx={{
           p: 2,
-          display: "flex",
-          flexDirection: "column"
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <Title>Pacjent</Title>

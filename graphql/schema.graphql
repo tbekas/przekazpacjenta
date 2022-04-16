@@ -1,78 +1,73 @@
 schema {
-    query: Query
-    mutation: Mutation
+  query: Query
+  mutation: Mutation
 }
 
 interface PageInfo {
-    totalCount: Int!
-    first: String!
-    last: String!
+  totalCount: Int!
+  first: String!
+  last: String!
 }
 
 type GeoPoint {
-    lat: Float!
-    lon: Float!
+  lat: Float!
+  lon: Float!
 }
 
 type Address {
-    streetWithNumber: String!
-    zipCode: String!
-    city: String!
+  streetWithNumber: String!
+  zipCode: String!
+  city: String!
 }
 
 type Facility {
-    id: ID!
-    name: String!
-    email: AWSEmail!
-    phoneNumber: AWSPhone
-    address: Address!
-    location: GeoPoint
-    createdAt: AWSDateTime
+  id: ID!
+  name: String!
+  email: AWSEmail!
+  phoneNumber: AWSPhone
+  address: Address!
+  location: GeoPoint
+  createdAt: AWSDateTime
 }
 
 type FacilitiesPage {
-    items: [Facility]!
-    pageInfo: PageInfo!
+  items: [Facility]!
+  pageInfo: PageInfo!
 }
 
 type User {
-    id: ID!
-    name: String!
-    email: AWSEmail!
-    phoneNumber: AWSPhone
-    facilities: [Facility]!
-    createdAt: AWSDateTime!
+  id: ID!
+  name: String!
+  email: AWSEmail!
+  phoneNumber: AWSPhone
+  facilities: [Facility]!
+  createdAt: AWSDateTime!
 }
 
 type Enrollment {
-    id: ID!
-    facility: Facility!
-    approved: Boolean!
-    expirationAt: AWSDateTime!
-    createdAt: AWSDateTime!
+  id: ID!
+  facility: Facility!
+  approved: Boolean!
+  expirationAt: AWSDateTime!
+  createdAt: AWSDateTime!
 }
 
 type Query {
-    facilities(
-        query: String,
-        after: String,
-        before: String,
-        limit: Int = 20
-    ): FacilitiesPage!
-    viewer: User!
-    enrollments(approved: Boolean): [Enrollment]!
+  facilities(query: String, after: String, before: String, limit: Int = 20): FacilitiesPage!
+  viewer: User!
+  enrollments(approved: Boolean): [Enrollment]!
 }
 
 input RequestEnrollmentInput {
-    facilityId: ID!
+  facilityId: ID!
 }
 
 input FinalizeEnrollmentInput {
-    enrollmentId: ID!
-    approvalToken: String!
+  enrollmentId: ID!
+  approvalToken: String!
 }
 
 type Mutation {
-    requestEnrollment(input: RequestEnrollmentInput!): Enrollment!
-    finalizeEnrollment(input: FinalizeEnrollmentInput!): Enrollment!
+  requestEnrollment(input: RequestEnrollmentInput!): Enrollment!
+  finalizeEnrollment(input: FinalizeEnrollmentInput!): Enrollment!
 }

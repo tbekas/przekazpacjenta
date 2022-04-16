@@ -11,11 +11,11 @@ async function up(db: Kysely<any>): Promise<void> {
     .addColumn('zipCode', 'text', (col) => col.notNull())
     .addColumn('city', 'text', (col) => col.notNull())
     .addColumn('createdAt', 'timestamptz', (col) => col.defaultTo(sql`now()`))
-    .execute()
+    .execute();
 }
 
 async function down(db: Kysely<any>): Promise<void> {
-  await db.schema.dropTable('facility').execute()
+  await db.schema.dropTable('facility').execute();
 }
 
-export default { up, down }
+export default { up, down };

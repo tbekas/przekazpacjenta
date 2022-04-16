@@ -17,9 +17,7 @@ export const handler: AppSyncResolverHandler<MutationParams<FinalizeEnrollmentIn
   const identity = event.identity as AppSyncIdentityCognito;
   const input = event.arguments.input;
 
-  return await db
-    .transaction()
-    .execute((trx) => mutationHandler({ input, identity, trx }));
+  return await db.transaction().execute((trx) => mutationHandler({ input, identity, trx }));
 };
 
 const mutationHandler: MutationHandler<FinalizeEnrollmentInput, Enrollment> = async ({ input, identity, trx }) => {
@@ -34,10 +32,7 @@ const mutationHandler: MutationHandler<FinalizeEnrollmentInput, Enrollment> = as
 
   assertDefined(enrollment, 'Enrollment is either non-existent, expired or already approved');
 
-  const approvalTokenHash = crypto
-    .createHash('md5')
-    .update(input.approvalToken)
-    .digest('hex');
+  const approvalTokenHash = crypto.createHash('md5').update(input.approvalToken).digest('hex');
 
   if (approvalTokenHash !== enrollment.approvalTokenHash) {
     throw new Error('Invalid approval token');
