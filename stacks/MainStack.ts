@@ -1,11 +1,12 @@
 import * as sst from '@serverless-stack/resources';
 import * as cdk from 'aws-cdk-lib';
-import { custom_resources as cr, aws_iam as iam, aws_route53 as route53 } from 'aws-cdk-lib';
+import { custom_resources as cr, aws_iam as iam, aws_route53 as route53, aws_s3 as s3 } from 'aws-cdk-lib';
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
 
 export interface MainStackProps extends sst.StackProps {
   hostedZoneName: string;
   siteDomainName: string;
+  imagesDomainName: string;
   emailDomainName: string;
   senderEmailName: string;
   senderEmailLocalPart: string;
@@ -75,6 +76,31 @@ export default class MainStack extends sst.Stack {
     });
 
     /**
+     * Bucket
+     */
+     const imagesBucket = new sst.Bucket(this, "ImagesBucket", {
+      notifications: [
+        {
+          function: {
+            handler: "lambdas/image/image-processing.handler",
+            bundle: {
+              nodeModules: ['sharp'],
+            },
+            environment: {
+              IMAGES_DOMAIN_NAME: props.imagesDomainName,
+            },
+          },
+          notificationProps: {
+            events: [s3.EventType.OBJECT_CREATED],
+            filters: [{ prefix: "raw/" }],
+          },
+        },
+      ],
+      defaultFunctionProps: commonFnProps,
+    });
+    imagesBucket.attachPermissions(["s3"]);
+
+    /**
      * API
      */
     const api = new sst.AppSyncApi(this, 'AppSyncApi', {
@@ -125,6 +151,14 @@ export default class MainStack extends sst.Stack {
           handler: 'lambdas/enrollment/finalize-enrollment.handler',
           timeout,
         },
+        createImageUpload: {
+          handler: 'lambdas/image/create-image-upload.handler',
+          environment: {
+            BUCKET_NAME: imagesBucket.bucketName,
+          },
+          permissions: ['s3'],
+          timeout,
+        },
       },
       resolvers: {
         'Query    facilities': 'facilities',
@@ -133,6 +167,7 @@ export default class MainStack extends sst.Stack {
         'User     facilities': 'userFacilities',
         'Mutation requestEnrollment': 'requestEnrollment',
         'Mutation finalizeEnrollment': 'finalizeEnrollment',
+        'Mutation createImageUpload': 'createImageUpload',
       },
     });
 

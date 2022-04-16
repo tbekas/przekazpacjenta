@@ -10,6 +10,7 @@ export default function main(app: sst.App): void {
   const mainStack = new MainStack(app, 'main-stack', {
     hostedZoneName: process.env.HOSTED_ZONE_NAME || '',
     siteDomainName: prefixWithStageIfNotProd(process.env.SITE_DOMAIN_NAME || '', app.stage),
+    imagesDomainName: prefixWithStageIfNotProd(process.env.IMAGES_DOMAIN_NAME || '', app.stage),
     emailDomainName: prefixWithStageIfNotProd(process.env.EMAIL_DOMAIN_NAME || '', app.stage),
     senderEmailName: process.env.SENDER_EMAIL_NAME || '',
     senderEmailLocalPart: process.env.SENDER_EMAIL_LOCAL_PART || '',

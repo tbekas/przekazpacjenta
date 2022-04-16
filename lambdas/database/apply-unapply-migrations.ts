@@ -33,26 +33,19 @@ export const unapplyHandler: Handler<ApplyUnapplyEvent, void> = async ({ logQuer
   }
 };
 
-interface MigrateToEvent {
-  to: string;
-}
+export const migrateDownHandler: Handler<ApplyUnapplyEvent, void> = async ({ logQuery }) => {
+  console.log('Migrating down')
 
-export const migrateToHandler: Handler<ApplyUnapplyEvent & MigrateToEvent, void> = async ({ logQuery, to }) => {
-  if (to in migrations) {
-    console.log(`Migrating to ${to}`);
-  } else {
-    throw new Error(`Migration not found ${to}`);
-  }
 
   const migrator = createMigrator(logQuery);
-  const { error, results } = await migrator.migrateTo(to);
+  const { error, results } = await migrator.migrateDown();
 
   logResults(results);
 
   if (error) {
     throw error;
   }
-};
+}
 
 function createMigrator(logQuery?: boolean) {
   const db = new Kysely<unknown>({ dialect: dataApi, log: logQuery ? ['query', 'error'] : ['error'] });

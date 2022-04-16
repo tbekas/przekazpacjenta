@@ -22,7 +22,9 @@
     "@tsconfig/node14": "^1.0.1",
     "@types/aws-lambda": "^8.10.70",
     "@types/escape-html": "^1.0.1",
+    "@types/mime-types": "^2.1.1",
     "@types/node": "<15.0.0",
+    "@types/sharp": "^0.30.2",
     "@types/uuid": "^8.3.4",
     "aws-cdk-lib": "2.15.0",
     "pg-native": "^3.0.0",
@@ -34,6 +36,8 @@
     "escape-html": "^1.0.3",
     "kysely": "^0.17.1",
     "kysely-data-api": "0.0.9",
+    "mime-types": "^2.1.35",
+    "sharp": "^0.30.4",
     "uuid": "^8.3.2"
   }
 }
