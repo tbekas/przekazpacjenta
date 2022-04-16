@@ -20,8 +20,11 @@ jobs:
     - run: npm install
     - run: npm install --prefix ./site/
 
-    - name: build backend
+    - name: Check formatting
+      run: npm run prettier -- --check ./
+
+    - name: Build backend
       run: npm run build
 
-    - name: build frontend
+    - name: Build frontend
       run: npm run build --prefix ./site/
