@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { styled } from "@mui/material/styles";
-import Divider from "@mui/material/Divider";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { styled } from '@mui/material/styles';
+import Divider from '@mui/material/Divider';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MuiDrawer, { DrawerProps as MuiDrawerProps } from "@mui/material/Drawer";
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import MuiDrawer, { DrawerProps as MuiDrawerProps } from '@mui/material/Drawer';
 
-import List from "@mui/material/List";
+import List from '@mui/material/List';
 
-import { mainListItems } from "../list";
+import { mainListItems } from '../list';
 
 type Props = {
   open: boolean;
@@ -21,13 +21,13 @@ type Props = {
 
 const AppDrawer = ({ open, drawerWidth, toggleDrawer }: Props) => {
   return (
-    <Drawer variant="permanent" drawerwidth={drawerWidth} open={open}>
+    <Drawer variant='permanent' drawerwidth={drawerWidth} open={open}>
       <Toolbar
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          px: [1]
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          px: [1],
         }}
       >
         <IconButton onClick={toggleDrawer}>
@@ -35,7 +35,7 @@ const AppDrawer = ({ open, drawerWidth, toggleDrawer }: Props) => {
         </IconButton>
       </Toolbar>
       <Divider />
-      <List component="nav">
+      <List component='nav'>
         {mainListItems}
         <Divider sx={{ my: 1 }} />
       </List>
@@ -45,7 +45,7 @@ const AppDrawer = ({ open, drawerWidth, toggleDrawer }: Props) => {
 
 AppDrawer.propTypes = {
   open: PropTypes.bool.isRequired,
-  drawerWidth: PropTypes.number.isRequired
+  drawerWidth: PropTypes.number.isRequired,
 };
 
 interface DrawerProps extends MuiDrawerProps {
@@ -55,32 +55,32 @@ interface DrawerProps extends MuiDrawerProps {
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => {
-    return prop !== "open";
-  }
+    return prop !== 'open';
+  },
 })<DrawerProps>(({ theme, open, drawerwidth }) => {
   const drawerWidth = drawerwidth;
   return {
-    "& .MuiDrawer-paper": {
-      position: "relative",
-      whiteSpace: "nowrap",
+    '& .MuiDrawer-paper': {
+      position: 'relative',
+      whiteSpace: 'nowrap',
       width: drawerWidth,
-      transition: theme.transitions.create("width", {
+      transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen
+        duration: theme.transitions.duration.enteringScreen,
       }),
-      boxSizing: "border-box",
+      boxSizing: 'border-box',
       ...(!open && {
-        overflowX: "hidden",
-        transition: theme.transitions.create("width", {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen
+          duration: theme.transitions.duration.leavingScreen,
         }),
         width: theme.spacing(7),
-        [theme.breakpoints.up("sm")]: {
-          width: theme.spacing(9)
-        }
-      })
-    }
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
   };
 });
 

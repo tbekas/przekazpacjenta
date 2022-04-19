@@ -1,16 +1,16 @@
-import * as sst from "@serverless-stack/resources";
-import * as cdk from "aws-cdk-lib";
-import { custom_resources as cr, aws_iam as iam, aws_route53 as route53 } from "aws-cdk-lib";
-import * as appsync from "@aws-cdk/aws-appsync-alpha";
+import * as sst from '@serverless-stack/resources';
+import * as cdk from 'aws-cdk-lib';
+import { custom_resources as cr, aws_iam as iam, aws_route53 as route53 } from 'aws-cdk-lib';
+import * as appsync from '@aws-cdk/aws-appsync-alpha';
 
 export interface MainStackProps extends sst.StackProps {
-  hostedZoneName: string,
-  siteDomainName: string,
-  emailDomainName: string,
-  senderEmailName: string,
-  senderEmailLocalPart: string,
-  replyToEmailLocalPart: string,
-  supportEmailLocalPart: string,
+  hostedZoneName: string;
+  siteDomainName: string;
+  emailDomainName: string;
+  senderEmailName: string;
+  senderEmailLocalPart: string;
+  replyToEmailLocalPart: string;
+  supportEmailLocalPart: string;
 }
 
 export default class MainStack extends sst.Stack {
@@ -20,27 +20,27 @@ export default class MainStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props: MainStackProps) {
     super(scope, id, props);
 
-    const timeout = scope.stage === "prod" ? 10 : 60;
+    const timeout = scope.stage === 'prod' ? 10 : 60;
 
     /**
      * RDS
      */
     const prodRdsScaling: sst.RDSScalingProps = {
       autoPause: false,
-      minCapacity: "ACU_8",
-      maxCapacity: "ACU_64",
+      minCapacity: 'ACU_8',
+      maxCapacity: 'ACU_64',
     };
     const devRdsScaling: sst.RDSScalingProps = {
       autoPause: 60,
-      minCapacity: "ACU_2",
-      maxCapacity: "ACU_2",
+      minCapacity: 'ACU_2',
+      maxCapacity: 'ACU_2',
     };
-  
+
     const dbName = `${scope.name}`;
-    const rds = new sst.RDS(this, "Database", {
-      engine: "postgresql10.14",
+    const rds = new sst.RDS(this, 'Database', {
+      engine: 'postgresql10.14',
       defaultDatabaseName: dbName,
-      scaling: scope.stage === "prod" ? prodRdsScaling : devRdsScaling
+      scaling: scope.stage === 'prod' ? prodRdsScaling : devRdsScaling,
     });
 
     const commonFnProps = {
@@ -51,12 +51,12 @@ export default class MainStack extends sst.Stack {
       },
       permissions: [rds],
       timeout,
-    }
+    };
 
     /**
      * Auth
      */
-    const auth = new sst.Auth(this, "Auth", {
+    const auth = new sst.Auth(this, 'Auth', {
       cognito: {
         userPool: {
           signInAliases: {
@@ -65,10 +65,10 @@ export default class MainStack extends sst.Stack {
           },
         },
         userPoolClient: {
-          accessTokenValidity: scope.stage === "prod" ? cdk.Duration.minutes(60) : cdk.Duration.days(1)
+          accessTokenValidity: scope.stage === 'prod' ? cdk.Duration.minutes(60) : cdk.Duration.days(1),
         },
         triggers: {
-          postConfirmation: "lambdas/user/create-user.handler"
+          postConfirmation: 'lambdas/user/create-user.handler',
         },
         defaultFunctionProps: commonFnProps,
       },
@@ -77,10 +77,10 @@ export default class MainStack extends sst.Stack {
     /**
      * API
      */
-    const api = new sst.AppSyncApi(this, "AppSyncApi", {
+    const api = new sst.AppSyncApi(this, 'AppSyncApi', {
       defaultFunctionProps: commonFnProps,
       graphqlApi: {
-        schema: "graphql/schema.graphql",
+        schema: 'graphql/schema.graphql',
         authorizationConfig: {
           ...(auth.cognitoUserPool
             ? {
@@ -96,43 +96,43 @@ export default class MainStack extends sst.Stack {
       },
       dataSources: {
         facilities: {
-          handler: "lambdas/facility/facilities.handler",
+          handler: 'lambdas/facility/facilities.handler',
           timeout,
         },
         viewer: {
-          handler: "lambdas/user/viewer.handler",
+          handler: 'lambdas/user/viewer.handler',
           timeout,
         },
         enrollments: {
-          handler: "lambdas/enrollment/enrollments.handler",
+          handler: 'lambdas/enrollment/enrollments.handler',
           timeout,
         },
         userFacilities: {
-          handler: "lambdas/user/user-facilities.handler",
+          handler: 'lambdas/user/user-facilities.handler',
           timeout,
         },
         requestEnrollment: {
-          handler: "lambdas/enrollment/request-enrollment.handler",
+          handler: 'lambdas/enrollment/request-enrollment.handler',
           environment: {
             SENDER_EMAIL: `"${props.senderEmailName}" <${props.senderEmailLocalPart}@${props.emailDomainName}>`,
             REPLY_TO_EMAIL: `${props.replyToEmailLocalPart}@${props.emailDomainName}`,
             SUPPORT_EMAIL: `${props.supportEmailLocalPart}@${props.emailDomainName}`,
           },
-          permissions: ["ses"],
+          permissions: ['ses'],
           timeout,
         },
         finalizeEnrollment: {
-          handler: "lambdas/enrollment/finalize-enrollment.handler",
+          handler: 'lambdas/enrollment/finalize-enrollment.handler',
           timeout,
-        }
+        },
       },
       resolvers: {
-        "Query    facilities": "facilities",
-        "Query    viewer": "viewer",
-        "Query    enrollments": "enrollments",
-        "User     facilities": "userFacilities",
-        "Mutation requestEnrollment": "requestEnrollment",
-        "Mutation finalizeEnrollment": "finalizeEnrollment",
+        'Query    facilities': 'facilities',
+        'Query    viewer': 'viewer',
+        'Query    enrollments': 'enrollments',
+        'User     facilities': 'userFacilities',
+        'Mutation requestEnrollment': 'requestEnrollment',
+        'Mutation finalizeEnrollment': 'finalizeEnrollment',
       },
     });
 
@@ -140,8 +140,8 @@ export default class MainStack extends sst.Stack {
      * Site
      */
     const siteDomain = props.siteDomainName;
-    const site = new sst.ReactStaticSite(this, "ReactSite", {
-      path: "site",
+    const site = new sst.ReactStaticSite(this, 'ReactSite', {
+      path: 'site',
       customDomain: {
         domainName: siteDomain,
         domainAlias: `www.${siteDomain}`,
@@ -157,8 +157,7 @@ export default class MainStack extends sst.Stack {
           : {}),
         ...(auth.cognitoUserPoolClient
           ? {
-              REACT_APP_USERPOOL_CLIENT_ID:
-                auth.cognitoUserPoolClient.userPoolClientId,
+              REACT_APP_USERPOOL_CLIENT_ID: auth.cognitoUserPoolClient.userPoolClientId,
             }
           : {}),
       },
@@ -167,38 +166,33 @@ export default class MainStack extends sst.Stack {
     /**
      * SES
      */
-    const verifyDomainIdentity = new cr.AwsCustomResource(
-      this,
-      "VerifyDomainIdentity",
-      {
-        onCreate: {
-          service: "SES",
-          action: "verifyDomainIdentity",
-          parameters: {
-            Domain: props.emailDomainName,
-          },
-          physicalResourceId:
-            cr.PhysicalResourceId.fromResponse("VerificationToken"),
+    const verifyDomainIdentity = new cr.AwsCustomResource(this, 'VerifyDomainIdentity', {
+      onCreate: {
+        service: 'SES',
+        action: 'verifyDomainIdentity',
+        parameters: {
+          Domain: props.emailDomainName,
         },
-        policy: cr.AwsCustomResourcePolicy.fromStatements([
-          new iam.PolicyStatement({
-            resources: ["*"],
-            actions: ["ses:VerifyDomainIdentity"],
-          }),
-        ]),
-      }
-    );
+        physicalResourceId: cr.PhysicalResourceId.fromResponse('VerificationToken'),
+      },
+      policy: cr.AwsCustomResourcePolicy.fromStatements([
+        new iam.PolicyStatement({
+          resources: ['*'],
+          actions: ['ses:VerifyDomainIdentity'],
+        }),
+      ]),
+    });
 
-    console.log(`Vendor response ${verifyDomainIdentity.toString()}`)
+    console.log(`Vendor response ${verifyDomainIdentity.toString()}`);
 
-    const hostedZone = route53.HostedZone.fromLookup(this, "HostedZone", {
+    const hostedZone = route53.HostedZone.fromLookup(this, 'HostedZone', {
       domainName: props.hostedZoneName,
     });
 
-    new route53.TxtRecord(this, "SESVerificationRecord", {
+    new route53.TxtRecord(this, 'SESVerificationRecord', {
       zone: hostedZone,
       recordName: `_amazonses.${props.emailDomainName}`,
-      values: [verifyDomainIdentity.getResponseField("VerificationToken")],
+      values: [verifyDomainIdentity.getResponseField('VerificationToken')],
     });
 
     this.addOutputs({
@@ -207,7 +201,7 @@ export default class MainStack extends sst.Stack {
       RdsSecretArn: rds.secretArn,
       DatabaseName: dbName,
     });
-    this.rds = rds
-    this.dbName = dbName
+    this.rds = rds;
+    this.dbName = dbName;
   }
 }

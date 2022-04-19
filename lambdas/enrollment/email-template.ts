@@ -1,4 +1,4 @@
-import escapeHtml from 'escape-html'
+import escapeHtml from 'escape-html';
 
 interface SubjectProps {
   user: {
@@ -6,8 +6,7 @@ interface SubjectProps {
   };
 }
 
-export const subject = ({ user }: SubjectProps) =>
-  `Kod potwierdzający dla ${user.name}`;
+export const subject = ({ user }: SubjectProps) => `Kod potwierdzający dla ${user.name}`;
 
 interface BodyProps {
   user: {
@@ -37,7 +36,7 @@ export const body = (props: BodyProps) => {
 
     <p>
       Jeśli ${escapeHtml(user.name)} nie jest pracownikiem w ${escapeHtml(facility.name)} 
-      ${reportLink("zgłoś to", props)} obsłudze serwisu.
+      ${reportLink('zgłoś to', props)} obsłudze serwisu.
     </p>
   </div>
   `;

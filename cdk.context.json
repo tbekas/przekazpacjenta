@@ -3,9 +3,5 @@
     "Id": "/hostedzone/Z09657311LGT3AKUBQKNL",
     "Name": "przekazpacjenta.pl."
   },
-  "availability-zones:account=998760726641:region=eu-central-1": [
-    "eu-central-1a",
-    "eu-central-1b",
-    "eu-central-1c"
-  ]
+  "availability-zones:account=998760726641:region=eu-central-1": ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
 }

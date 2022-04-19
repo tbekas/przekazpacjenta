@@ -1,17 +1,17 @@
-import { AppSyncResolverHandler, AppSyncIdentityCognito } from "aws-lambda";
-import { db } from "../database"
-import { Enrollment } from "../graphql/dto";
-import { toEnrollmentDto } from "./entrollment-mapping";
+import { AppSyncResolverHandler, AppSyncIdentityCognito } from 'aws-lambda';
+import { db } from '../database';
+import { Enrollment } from '../graphql/dto';
+import { toEnrollmentDto } from './entrollment-mapping';
 import { sql } from 'kysely';
-import { toFacilityDto } from "../facility/facility-mapping";
+import { toFacilityDto } from '../facility/facility-mapping';
 
 interface Params {
-  approved?: boolean
+  approved?: boolean;
 }
 
-export const handler: AppSyncResolverHandler<Params,Enrollment[]> = async (event) => {
-  const identity = event.identity as AppSyncIdentityCognito
-  const approved = event.arguments.approved
+export const handler: AppSyncResolverHandler<Params, Enrollment[]> = async (event) => {
+  const identity = event.identity as AppSyncIdentityCognito;
+  const approved = event.arguments.approved;
 
   const rows = await db
     .selectFrom('enrollment as e')
@@ -22,8 +22,8 @@ export const handler: AppSyncResolverHandler<Params,Enrollment[]> = async (event
     .selectAll()
     .execute();
 
-  return rows.map(({f_id, f_createdAt, e_id, e_createdAt, ...rest}) => ( {
-    facility: toFacilityDto({...rest, id: f_id, createdAt: f_createdAt}),
-    ...toEnrollmentDto({...rest, id: e_id, createdAt: e_createdAt })
-  }))
+  return rows.map(({ f_id, f_createdAt, e_id, e_createdAt, ...rest }) => ({
+    facility: toFacilityDto({ ...rest, id: f_id, createdAt: f_createdAt }),
+    ...toEnrollmentDto({ ...rest, id: e_id, createdAt: e_createdAt }),
+  }));
 };

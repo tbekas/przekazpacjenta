@@ -1,18 +1,18 @@
 [
-    {
-        "name": "Kliniczny Szpital Wojewódzki Nr 2 im. Św. Jadwigi Królowej w Rzeszowie",
-        "email": "sekretariat@szpital2.rzeszow.pl",
-        "phoneNumber": "+48178664701",
-        "streetWithNumber": "ul. Lwowska 60",
-        "zipCode": "35-301",
-        "city": "Rzeszów"
-    },
-    {
-        "name": "Samodzielny Publiczny Szpital Kliniczny nr 1 w Lublinie",
-        "email": "sekretariat@spsk1.lublin.pl",
-        "phoneNumber": "+48815342288 ",
-        "streetWithNumber": "ul. Stanisława Staszica 16",
-        "zipCode": "20-081",
-        "city": "Lublin"
-    }
+  {
+    "name": "Kliniczny Szpital Wojewódzki Nr 2 im. Św. Jadwigi Królowej w Rzeszowie",
+    "email": "sekretariat@szpital2.rzeszow.pl",
+    "phoneNumber": "+48178664701",
+    "streetWithNumber": "ul. Lwowska 60",
+    "zipCode": "35-301",
+    "city": "Rzeszów"
+  },
+  {
+    "name": "Samodzielny Publiczny Szpital Kliniczny nr 1 w Lublinie",
+    "email": "sekretariat@spsk1.lublin.pl",
+    "phoneNumber": "+48815342288 ",
+    "streetWithNumber": "ul. Stanisława Staszica 16",
+    "zipCode": "20-081",
+    "city": "Lublin"
+  }
 ]

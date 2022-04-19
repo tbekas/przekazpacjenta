@@ -1,7 +1,7 @@
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
-import Title from "../components/title";
+import Title from '../components/title';
 
 export default function Bed() {
   return (
@@ -9,8 +9,8 @@ export default function Bed() {
       <Paper
         sx={{
           p: 2,
-          display: "flex",
-          flexDirection: "column"
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <Title>Miejsce</Title>

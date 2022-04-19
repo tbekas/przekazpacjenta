@@ -1,4 +1,4 @@
-import { Generated, Insertable, Selectable, Updateable } from 'kysely'
+import { Generated, Insertable, Selectable, Updateable } from 'kysely';
 
 export interface FacilityTable {
   id: Generated<string>;
@@ -11,6 +11,6 @@ export interface FacilityTable {
   createdAt: Generated<string>;
 }
 
-export type FacilityRow = Selectable<FacilityTable>
-export type InsertableFacilityRow = Insertable<FacilityTable>
-export type UpdateableFacilityRow = Updateable<FacilityTable>
+export type FacilityRow = Selectable<FacilityTable>;
+export type InsertableFacilityRow = Insertable<FacilityTable>;
+export type UpdateableFacilityRow = Updateable<FacilityTable>;

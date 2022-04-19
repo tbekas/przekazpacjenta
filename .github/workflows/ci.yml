@@ -1,27 +1,30 @@
-name:  CI - build on pull request
+name: CI - build on pull request
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-20.04
 
-    steps:  
-    - name: Checkout
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '14'
-    - run: npm install
-    - run: npm install --prefix ./site/
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm install
+      - run: npm install --prefix ./site/
 
-    - name: build backend
-      run: npm run build
+      - name: Check formatting
+        run: npm run prettier -- --check ./
 
-    - name: build frontend
-      run: npm run build --prefix ./site/
+      - name: Build backend
+        run: npm run build
+
+      - name: Build frontend
+        run: npm run build --prefix ./site/

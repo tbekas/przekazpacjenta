@@ -8,6 +8,6 @@ interface CognitoUserInfo {
     picture?: string;
   };
   username: string;
-};
+}
 
 export default CognitoUserInfo;
