@@ -1,45 +1,35 @@
-# Getting Started with Serverless Stack (SST)
+# Przekaż Pacjenta
 
-This project was bootstrapped with [Create Serverless Stack](https://docs.serverless-stack.com/packages/create-serverless-stack).
+[![Deploy status](https://img.shields.io/github/workflow/status/tbekas/przekazpacjenta/CD%20-%20deploy%20on%20merge%20to%20main?label=deploy)](https://github.com/tbekas/przekazpacjenta/actions/workflows/cd.yml) [![Last commit (branch)](https://img.shields.io/github/last-commit/tbekas/przekazpacjenta/main)](https://github.com/tbekas/przekazpacjenta/commits/main) [![License](https://img.shields.io/github/license/tbekas/przekazpacjenta)](https://github.com/tbekas/przekazpacjenta/blob/main/LICENSE)
 
-Start by installing the dependencies.
+Source code for [staging.przekazpacjenta.pl](https://staging.przekazpacjenta.pl).
 
-```bash
-$ npm install
-```
+## Set up
 
-## Commands
+### `npm install`
+
+Installs backend dependencies.
+
+### `npm install --prefix site`
+
+Installs frontend dependencies.
+
+## Local development
 
 ### `npm run start`
 
-Starts the local Lambda development environment.
+Starts the backend development environment.
 
-### `npm run build`
+### `npm run start --prefix site`
 
-Build your app and synthesize your stacks.
+Starts the local frontend development server.
 
-Generates a `.build/` directory with the compiled files and a `.build/cdk.out/` directory with the synthesized CloudFormation stacks.
+### `npm run prettier -- --write .`
 
-### `npm run deploy [stack]`
+Prettifies all files.
 
-Deploy all your stacks to AWS. Or optionally deploy a specific stack.
+## Clean up
 
-### `npm run remove [stack]`
+### `npm run remove`
 
-Remove all your stacks and all of their resources from AWS. Or optionally remove a specific stack.
-
-### `npm run test`
-
-Runs your tests using Jest. Takes all the [Jest CLI options](https://jestjs.io/docs/en/cli).
-
-## Documentation
-
-Learn more about the Serverless Stack.
-
-- [Docs](https://docs.serverless-stack.com)
-- [@serverless-stack/cli](https://docs.serverless-stack.com/packages/cli)
-- [@serverless-stack/resources](https://docs.serverless-stack.com/packages/resources)
-
-## Community
-
-[Follow us on Twitter](https://twitter.com/ServerlessStack) or [post on our forums](https://discourse.serverless-stack.com).
+Removes all your stacks from AWS.
