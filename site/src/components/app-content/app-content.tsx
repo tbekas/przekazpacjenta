@@ -5,11 +5,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
-import Footer from '../footer/footer';
-import Main from '../../routes/main';
-import Pacjent from '../../routes/patient';
-import Bed from '../../routes/bed';
-import { Routes, Route } from 'react-router-dom';
+import Footer from "../footer/footer";
+import Main from "../../routes/main";
+import Pacjent from "../../routes/patient";
+import Bed from "../../routes/bed";
+import Facilities from "../../routes/facilities";
+import { Routes, Route } from "react-router-dom";
 
 const AppContent = () => {
   return (
@@ -27,9 +28,10 @@ const AppContent = () => {
       <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
           <Routes>
-            <Route path='/' element={<Main />} />
-            <Route path='/patient' element={<Pacjent />} />
-            <Route path='/bed' element={<Bed />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/patient" element={<Pacjent />} />
+            <Route path="/bed" element={<Bed />} />
+            <Route path="/facilities" element={<Facilities />} />
           </Routes>
         </Grid>
         <Footer />

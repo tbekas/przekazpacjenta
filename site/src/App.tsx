@@ -10,7 +10,8 @@ import Layout from './components/layout';
 
 Amplify.configure(aws_exports);
 
-console.log(aws_exports);
+console.log('aws_exports', aws_exports);
+console.log('Amplify: ', Amplify);
 
 const App = () => {
   return (
