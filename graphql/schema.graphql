@@ -3,7 +3,7 @@ schema {
   mutation: Mutation
 }
 
-interface PageInfo {
+type PageInfo {
   totalCount: Int!
   first: String!
   last: String!
