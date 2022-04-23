@@ -6,12 +6,14 @@ import { RDSDataService } from 'aws-sdk';
 import { UserTable } from './schema/user-table';
 import { EnrollmentTable } from './schema/enrollment-table';
 import { UserFacilityTable } from './schema/user-facility-table';
+import { ImageTable } from './schema/image-table';
 
 export interface Database {
   facility: FacilityTable;
   user: UserTable;
   enrollment: EnrollmentTable;
   userFacility: UserFacilityTable;
+  image: ImageTable;
 }
 
 export const dataApi = new DataApiDialect({
