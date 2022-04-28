@@ -29,8 +29,8 @@ export default class MigrationsStack extends sst.Stack {
       ...commonFnProps,
     });
 
-    new sst.Function(this, 'MigrateToMigration', {
-      handler: 'lambdas/database/apply-unapply-migrations.migrateToHandler',
+    new sst.Function(this, 'MigrateDown', {
+      handler: 'lambdas/database/apply-unapply-migrations.migrateDownHandler',
       ...commonFnProps,
     });
 

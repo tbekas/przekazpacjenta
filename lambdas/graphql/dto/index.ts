@@ -44,3 +44,15 @@ export interface Enrollment {
   expirationAt: string;
   createdAt: string;
 }
+
+export interface FormDataEntry {
+  key: string;
+  value: string;
+}
+
+export interface ImageUpload {
+  url: string;
+  imageId: string;
+  formData: FormDataEntry[];
+  expirationAt: string;
+}

@@ -58,6 +58,34 @@ type Query {
   enrollments(approved: Boolean): [Enrollment]!
 }
 
+type FormDataEntry {
+  key: String!
+  value: String!
+}
+
+type ImageUpload {
+  url: AWSURL!
+  imageId: ID!
+  formData: [FormDataEntry]!
+  expirationAt: AWSDateTime!
+}
+
+type Image {
+  id: ID!
+  filename: String!
+  url: AWSURL! #hires
+  width: Int!
+  height: Int!
+  thumbnails: [Thumbnail]!
+}
+
+type Thumbnail {
+  label: String!
+  url: AWSURL!
+  width: Int!
+  height: Int!
+}
+
 input RequestEnrollmentInput {
   facilityId: ID!
 }
@@ -67,7 +95,12 @@ input FinalizeEnrollmentInput {
   approvalToken: String!
 }
 
+input CreateImageUploadInput {
+  filename: String!
+}
+
 type Mutation {
   requestEnrollment(input: RequestEnrollmentInput!): Enrollment!
   finalizeEnrollment(input: FinalizeEnrollmentInput!): Enrollment!
+  createImageUpload(input: CreateImageUploadInput!): ImageUpload!
 }

@@ -1,11 +1,13 @@
 import * as sst from '@serverless-stack/resources';
 import * as cdk from 'aws-cdk-lib';
-import { custom_resources as cr, aws_iam as iam, aws_route53 as route53 } from 'aws-cdk-lib';
+import { custom_resources as cr, aws_iam as iam, aws_route53 as route53, aws_s3 as s3 } from 'aws-cdk-lib';
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
+import { StaticSite } from '@serverless-stack/resources';
 
 export interface MainStackProps extends sst.StackProps {
   hostedZoneName: string;
   siteDomainName: string;
+  imagesDomainName: string;
   emailDomainName: string;
   senderEmailName: string;
   senderEmailLocalPart: string;
@@ -75,6 +77,46 @@ export default class MainStack extends sst.Stack {
     });
 
     /**
+     * Image Upload
+     */
+    const imagesSite = new StaticSite(this, 'ImagesSite', {
+      path: 'images-site',
+      customDomain: {
+        domainName: props.imagesDomainName,
+        hostedZone: props.hostedZoneName,
+      },
+      purgeFiles: false,
+      disablePlaceholder: true,
+      waitForInvalidation: false,
+    });
+
+    const uploadBucket = new sst.Bucket(this, 'UploadBucket', {
+      notifications: [
+        {
+          function: {
+            handler: 'lambdas/image/image-processing.handler',
+            bundle: {
+              nodeModules: ['sharp'],
+            },
+            environment: {
+              IMAGES_BUCKET_NAME: imagesSite.bucketName,
+              IMAGES_BASE_URL: imagesSite.customDomainUrl || imagesSite.url,
+            },
+          },
+          notificationProps: {
+            events: [s3.EventType.OBJECT_CREATED],
+            filters: [{ prefix: 'image/' }],
+          },
+        },
+      ],
+      defaultFunctionProps: commonFnProps,
+    });
+    const imageProcessingFn = uploadBucket.notificationFunctions[0];
+    imageProcessingFn.attachPermissions(['s3']);
+    uploadBucket.s3Bucket.grantRead(imageProcessingFn);
+    imagesSite.s3Bucket.grantWrite(imageProcessingFn);
+
+    /**
      * API
      */
     const api = new sst.AppSyncApi(this, 'AppSyncApi', {
@@ -125,6 +167,14 @@ export default class MainStack extends sst.Stack {
           handler: 'lambdas/enrollment/finalize-enrollment.handler',
           timeout,
         },
+        createImageUpload: {
+          handler: 'lambdas/image/create-image-upload.handler',
+          environment: {
+            UPLOAD_BUCKET_NAME: uploadBucket.bucketName,
+          },
+          permissions: ['s3'],
+          timeout,
+        },
       },
       resolvers: {
         'Query    facilities': 'facilities',
@@ -133,6 +183,7 @@ export default class MainStack extends sst.Stack {
         'User     facilities': 'userFacilities',
         'Mutation requestEnrollment': 'requestEnrollment',
         'Mutation finalizeEnrollment': 'finalizeEnrollment',
+        'Mutation createImageUpload': 'createImageUpload',
       },
     });
 
