@@ -149,6 +149,10 @@ export default class MainStack extends sst.Stack {
           handler: 'lambdas/enrollment/enrollments.handler',
           timeout,
         },
+        categories: {
+          handler: 'lambdas/category/categories.handler',
+          timeout,
+        },
         userFacilities: {
           handler: 'lambdas/user/user-facilities.handler',
           timeout,
@@ -180,6 +184,7 @@ export default class MainStack extends sst.Stack {
         'Query    facilities': 'facilities',
         'Query    viewer': 'viewer',
         'Query    enrollments': 'enrollments',
+        'Query    categories': 'categories',
         'User     facilities': 'userFacilities',
         'Mutation requestEnrollment': 'requestEnrollment',
         'Mutation finalizeEnrollment': 'finalizeEnrollment',
