@@ -1,0 +1,170 @@
+[
+  {
+    "id": "8d10f8f8-b041-417f-9e8c-4f069e807da9",
+    "archived": false,
+    "pl": {
+      "name": "Złamania - ortopedia",
+      "description": "Urazy wymgające wsparcia ortopedycznego w obrebie układu kostno stawowego"
+    },
+    "en": {
+      "name": "Fractures, orthopedics",
+      "description": "Injuries requiring orthopedic support in the osteoarticular system"
+    }
+  },
+  {
+    "id": "7550d133-e460-42c3-8d98-de245516d201",
+    "archived": false,
+    "pl": {
+      "name": "Złamania - neurochirurgia",
+      "description": "Złamania wymagające leczenia neurochirurgicznego"
+    },
+    "en": {
+      "name": "Fractures - neurosurgery",
+      "description": "Fractures requiring neurosurgical treatment"
+    }
+  },
+  {
+    "id": "b3494eb6-2cf8-442b-9cb0-68834c015403",
+    "archived": false,
+    "pl": {
+      "name": "Urazy głowy",
+      "description": "Urazy głowy, OUN"
+    },
+    "en": {
+      "name": "Head injuries",
+      "description": "Head injuries"
+    }
+  },
+  {
+    "id": "66e6845f-34b6-4299-8a4f-b6ec553eb071",
+    "archived": false,
+    "pl": {
+      "name": "Oparzenia",
+      "description": "Oparzenia"
+    },
+    "en": {
+      "name": "Burns",
+      "description": "Burns"
+    }
+  },
+  {
+    "id": "ab2feefc-724a-43eb-b071-a763bdda9ad8",
+    "archived": false,
+    "pl": {
+      "name": "Urazy jamy brzusznej",
+      "description": "Stany ostre jamy brzusznej (otwarty brzuch, przetoki)"
+    },
+    "en": {
+      "name": "Abdominal injuries",
+      "description": "Acute conditions of the abdominal cavity (open abdomen, fistulas)"
+    }
+  },
+  {
+    "id": "1126dfac-cbb4-4cfc-ba9d-62df2ce37ab7",
+    "archived": false,
+    "pl": {
+      "name": "Urazy klatki piersiowej",
+      "description": "Urazy oraz schorzenia klatki piersiowej"
+    },
+    "en": {
+      "name": "Chest injuries",
+      "description": "Chest injuries and conditions"
+    }
+  },
+  {
+    "id": "75798929-5cbf-4542-8ecc-d1aff6251145",
+    "archived": false,
+    "pl": {
+      "name": "Urazy układu moczowego",
+      "description": "Urazy oraz schorzenia układu moczowego (nerki, pęcherz)"
+    },
+    "en": {
+      "name": "Urinary tract injuries",
+      "description": "Injuries and conditions of the urinary system (kidneys, bladder)"
+    }
+  },
+  {
+    "id": "0746908d-a55e-4f58-9fe1-fd6eadc0ee51",
+    "archived": false,
+    "pl": {
+      "name": "Urazy laryngologiczne",
+      "description": "Urazy oraz schorzenia w zakresie laryngologicznym"
+    },
+    "en": {
+      "name": "ENT injuries",
+      "description": "ENT injuries and conditions"
+    }
+  },
+  {
+    "id": "1c569724-17a0-432d-b9dc-9306727e5fbb",
+    "archived": false,
+    "pl": {
+      "name": "Chirurgia szczęki",
+      "description": "Urazy w zakresie chirurgii szczękowej"
+    },
+    "en": {
+      "name": "Oral surgery",
+      "description": "Oral injuries and conditions"
+    }
+  },
+  {
+    "id": "40f22d1b-6198-49ea-a51a-a87367880ff2",
+    "archived": false,
+    "pl": {
+      "name": "Urazy oczu",
+      "description": "Urazy oczu oraz okulistyka"
+    },
+    "en": {
+      "name": "Eye injuries",
+      "description": "Eye injuries and ophthalmology"
+    }
+  },
+  {
+    "id": "5cd8630d-9146-4c81-83a3-69dbf28d76e2",
+    "archived": false,
+    "pl": {
+      "name": "Amputacje",
+      "description": "Amputacje, urazy kończyn"
+    },
+    "en": {
+      "name": "Amputations",
+      "description": "Amputations"
+    }
+  },
+  {
+    "id": "3cc72ac3-0970-4cfa-9792-1df95bc00070",
+    "archived": false,
+    "pl": {
+      "name": "Urazy u kobiet w ciąży",
+      "description": "Urazy u kobiet w ciąży"
+    },
+    "en": {
+      "name": "Pregnant women injuries",
+      "description": "Pregnant women injuries"
+    }
+  },
+  {
+    "id": "93f4db60-e668-4c50-a55c-f418705a8f2f",
+    "archived": false,
+    "pl": {
+      "name": "Chirurgia dziecięca",
+      "description": "Chirurgia dziecięca"
+    },
+    "en": {
+      "name": "Pediatric surgery",
+      "description": "Pediatric surgery"
+    }
+  },
+  {
+    "id": "6105c35f-f894-4329-8bc5-45dd09614d95",
+    "archived": false,
+    "pl": {
+      "name": "Chirurgia naczyniowa",
+      "description": "Urazy dużych naczyń krwionośnych"
+    },
+    "en": {
+      "name": "Vascular surgery",
+      "description": "Injuries of large blood vessels"
+    }
+  }
+]

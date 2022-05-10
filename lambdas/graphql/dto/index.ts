@@ -56,3 +56,10 @@ export interface ImageUpload {
   formData: FormDataEntry[];
   expirationAt: string;
 }
+
+export interface Category {
+  id: string;
+  name: string;
+  description: string;
+  archived: boolean;
+}

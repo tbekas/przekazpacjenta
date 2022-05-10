@@ -18,7 +18,7 @@ erDiagram
     text name
     text email
     text phoneNumber
-    timestamp createdAt
+    timestamptz createdAt
   }
   FACILITY {
     uuid id PK
@@ -28,7 +28,7 @@ erDiagram
     text streetWithNumber
     text zipCode
     text city
-    timestamp createdAt
+    timestamptz createdAt
   }
   ENROLLMENT {
     uuid id PK
@@ -36,7 +36,14 @@ erDiagram
     uuid userId FK
     boolean approved
     varchar approvalTokenHash
-    timestamp expirationAt
-    timestamp createdAt
+    timestamptz expirationAt
+    timestamptz createdAt
+  }
+  CATEGORY {
+    uuid id PK
+    boolean archived
+    jsonb pl
+    jsonb en
+    timestamptz createdAt
   }
 ```

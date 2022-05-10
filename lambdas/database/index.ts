@@ -7,6 +7,7 @@ import { UserTable } from './schema/user-table';
 import { EnrollmentTable } from './schema/enrollment-table';
 import { UserFacilityTable } from './schema/user-facility-table';
 import { ImageTable } from './schema/image-table';
+import { CategoryTable } from './schema/category-table';
 
 export interface Database {
   facility: FacilityTable;
@@ -14,6 +15,7 @@ export interface Database {
   enrollment: EnrollmentTable;
   userFacility: UserFacilityTable;
   image: ImageTable;
+  category: CategoryTable;
 }
 
 export const dataApi = new DataApiDialect({

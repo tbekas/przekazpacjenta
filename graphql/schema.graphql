@@ -52,12 +52,6 @@ type Enrollment {
   createdAt: AWSDateTime!
 }
 
-type Query {
-  facilities(query: String, after: String, before: String, limit: Int = 20): FacilitiesPage!
-  viewer: User!
-  enrollments(approved: Boolean): [Enrollment]!
-}
-
 type FormDataEntry {
   key: String!
   value: String!
@@ -86,6 +80,13 @@ type Thumbnail {
   height: Int!
 }
 
+type Category {
+  id: ID!
+  name: String!
+  description: String!
+  archived: Boolean!
+}
+
 input RequestEnrollmentInput {
   facilityId: ID!
 }
@@ -97,6 +98,13 @@ input FinalizeEnrollmentInput {
 
 input CreateImageUploadInput {
   filename: String!
+}
+
+type Query {
+  facilities(query: String, after: String, before: String, limit: Int = 20): FacilitiesPage!
+  viewer: User!
+  enrollments(approved: Boolean): [Enrollment]!
+  categories(archived: Boolean): [Category]!
 }
 
 type Mutation {
