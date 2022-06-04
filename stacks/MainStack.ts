@@ -182,7 +182,7 @@ export default class MainStack extends sst.Stack {
         createVacancyAd: {
           handler: 'lambdas/vacancy-ad/create-vacancy-ad.handler',
           timeout,
-        }
+        },
       },
       resolvers: {
         'Query    facilities': 'facilities',

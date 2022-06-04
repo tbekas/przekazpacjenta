@@ -20,7 +20,7 @@ export const handler: AppSyncResolverHandler<MutationParams<CreateVacancyAdInput
   return await db.transaction().execute((trx) => mutationHandler({ input, identity, trx }));
 };
 
-const mutationHandler: MutationHandler<CreateVacancyAdInput, VacancyAd> = async ({ input, identity, trx, }) => {
+const mutationHandler: MutationHandler<CreateVacancyAdInput, VacancyAd> = async ({ input, identity, trx }) => {
   const user = await trx
     .selectFrom('user')
     .selectAll()
@@ -49,18 +49,18 @@ const mutationHandler: MutationHandler<CreateVacancyAdInput, VacancyAd> = async 
     active: true,
   };
 
-  const categoryIds = input.categoryIds.map( function(id) {
-    return sql`uuid(${id})`.castTo<string>()
+  const categoryIds = input.categoryIds.map(function (id) {
+    return sql`uuid(${id})`.castTo<string>();
   });
 
-  const validCategories = trx.selectFrom('category')
+  const validCategories = trx
+    .selectFrom('category')
     .where('category.id', 'in', categoryIds)
     .where('archived', '=', false)
     .selectAll()
     .execute();
 
-  if (input.categoryIds.length !== (await validCategories).length)
-    throw new Error('Invalied categoryIds');
+  if (input.categoryIds.length !== (await validCategories).length) throw new Error('Invalied categoryIds');
 
   const vacancyAdResult = await trx
     .insertInto('vacancyAd')

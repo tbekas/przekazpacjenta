@@ -9,7 +9,7 @@ import { UserFacilityTable } from './schema/user-facility-table';
 import { ImageTable } from './schema/image-table';
 import { CategoryTable } from './schema/category-table';
 import { VacancyAdTable } from './schema/vacancy-ad-table';
-import { VacancyAdCategoryTable } from './schema/vacancy-ad-category-table'
+import { VacancyAdCategoryTable } from './schema/vacancy-ad-category-table';
 
 export interface Database {
   facility: FacilityTable;
