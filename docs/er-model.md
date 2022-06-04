@@ -13,6 +13,7 @@ erDiagram
   USER ||--|{ ENROLLMENT : request
   FACILITY ||--|{ ENROLLMENT : approves
   USER }o--o{ FACILITY : "enrolled in"
+  VACANCY-AD }o--o{ CATEGORY : "categorised in"
   USER {
     uuid id PK
     text name
@@ -44,6 +45,16 @@ erDiagram
     boolean archived
     jsonb pl
     jsonb en
+    timestamptz createdAt
+  }
+  VACANCY-AD {
+    uuid id PK
+    uuid facilityId FK
+    uuid userId FK
+    jsonb categories
+    text name
+    text description
+    boolean active
     timestamptz createdAt
   }
 ```

@@ -179,6 +179,10 @@ export default class MainStack extends sst.Stack {
           permissions: ['s3'],
           timeout,
         },
+        createVacancyAd: {
+          handler: 'lambdas/vacancy-ad/create-vacancy-ad.handler',
+          timeout,
+        }
       },
       resolvers: {
         'Query    facilities': 'facilities',
@@ -189,6 +193,7 @@ export default class MainStack extends sst.Stack {
         'Mutation requestEnrollment': 'requestEnrollment',
         'Mutation finalizeEnrollment': 'finalizeEnrollment',
         'Mutation createImageUpload': 'createImageUpload',
+        'Mutation createVacancyAd': 'createVacancyAd',
       },
     });
 

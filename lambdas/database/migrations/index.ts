@@ -7,3 +7,5 @@ export { default as m006 } from './006-create-user-facility-table';
 export { default as m007 } from './007-create-image-table';
 export { default as m008 } from './008-create-category-table';
 export { default as m009 } from './009-insert-categories';
+export { default as m010 } from './010-create-vacancy-ad-table';
+export { default as m011 } from './011-create-vacancy-ad-category-table';

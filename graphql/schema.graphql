@@ -87,6 +87,26 @@ type Category {
   archived: Boolean!
 }
 
+type VacancyAd {
+  id: ID!
+  facility: Facility!
+  user: User!
+  categories: [Category]!
+  name: String!
+  description: String!
+  collaborative: Boolean!
+  active: Boolean!
+  createdAt: AWSDateTime!
+}
+
+input VacancyAdInput {
+  facilityId: ID!
+  name: String!
+  description: String!
+  collaborative: Boolean!
+  categoryIds: [ID]!
+}
+
 input RequestEnrollmentInput {
   facilityId: ID!
 }
@@ -111,4 +131,5 @@ type Mutation {
   requestEnrollment(input: RequestEnrollmentInput!): Enrollment!
   finalizeEnrollment(input: FinalizeEnrollmentInput!): Enrollment!
   createImageUpload(input: CreateImageUploadInput!): ImageUpload!
+  createVacancyAd(input: VacancyAdInput!): VacancyAd!
 }

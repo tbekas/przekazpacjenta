@@ -41,13 +41,15 @@ export default class MigrationsStack extends sst.Stack {
       });
     }
 
-    new sst.Script(this, 'ApplyMigrationsAfterDeploy', {
-      onCreate: 'lambdas/database/apply-unapply-migrations.applyHandler',
-      onUpdate: 'lambdas/database/apply-unapply-migrations.applyHandler',
-      defaultFunctionProps: {
-        ...commonFnProps,
-        enableLiveDev: false,
-      },
-    });
+    if (scope.stage === 'prod' || scope.stage === 'staging') {
+      new sst.Script(this, 'ApplyMigrationsAfterDeploy', {
+        onCreate: 'lambdas/database/apply-unapply-migrations.applyHandler',
+        onUpdate: 'lambdas/database/apply-unapply-migrations.applyHandler',
+        defaultFunctionProps: {
+          ...commonFnProps,
+          enableLiveDev: false,
+        },
+      });
+    }
   }
 }
