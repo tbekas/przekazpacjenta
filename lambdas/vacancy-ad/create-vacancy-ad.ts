@@ -75,13 +75,7 @@ const mutationHandler: MutationHandler<CreateVacancyAdInput, VacancyAd> = async 
 
   await trx.insertInto('vacancyAdCategory').values(vacancyAdCategoryValues).execute();
 
-  const vacancyAd = await trx
-    .selectFrom('vacancyAd')
-    .selectAll()
-    .where('id', '=', sql`uuid(${vacancyAdResult.id})`)
-    .executeTakeFirstOrThrow();
-
   return {
-    ...toVacancyAdDto(vacancyAd),
+    ...toVacancyAdDto(vacancyAdResult),
   };
 };
