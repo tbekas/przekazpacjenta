@@ -63,3 +63,12 @@ export interface Category {
   description: string;
   archived: boolean;
 }
+
+export interface VacancyAd {
+  id: string;
+  name: string;
+  description: string;
+  collaborative: boolean;
+  active: boolean;
+  createdAt: string;
+}
